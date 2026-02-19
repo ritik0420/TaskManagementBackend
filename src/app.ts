@@ -7,7 +7,9 @@ import userRoutes from './routes/users.js';
 
 const app = express();
 
-app.use(cors({ origin: process.env.CLIENT_URL || 'http://localhost:3000', credentials: true }));
+// Normalize allowed origin (no trailing slash) so it matches browser's Origin header exactly
+const allowedOrigin = (process.env.CLIENT_URL || 'http://localhost:3000').replace(/\/$/, '');
+app.use(cors({ origin: allowedOrigin, credentials: true }));
 app.use(express.json());
 
 app.use('/api/auth', authRoutes);

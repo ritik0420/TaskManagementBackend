@@ -7,7 +7,7 @@ const JWT_SECRET = process.env.JWT_SECRET!;
 
 export function initSocket(httpServer: HttpServer): Server {
   const io = new Server(httpServer, {
-    cors: { origin: process.env.CLIENT_URL || 'http://localhost:3000', methods: ['GET', 'POST'] },
+    cors: { origin: (process.env.CLIENT_URL || 'http://localhost:3000').replace(/\/$/, ''), methods: ['GET', 'POST'] },
   });
 
   io.use(async (socket: Socket, next) => {
