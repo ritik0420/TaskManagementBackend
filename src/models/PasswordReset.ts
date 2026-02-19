@@ -20,7 +20,7 @@ const passwordResetSchema = new Schema<IPasswordReset>(
   { timestamps: true }
 );
 
-passwordResetSchema.index({ token: 1 }, { unique: true });
+// token already has unique: true in schema; do not add duplicate index
 passwordResetSchema.index({ expiresAt: 1 }, { expireAfterSeconds: 0 });
 
 export const PasswordReset: Model<IPasswordReset> = mongoose.model<IPasswordReset>('PasswordReset', passwordResetSchema);
