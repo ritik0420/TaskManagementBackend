@@ -18,7 +18,7 @@ const refreshTokenSchema = new Schema<IRefreshToken>(
   { timestamps: true }
 );
 
-refreshTokenSchema.index({ token: 1 }, { unique: true });
+// token already has unique: true in schema; do not add duplicate index
 refreshTokenSchema.index({ user: 1, deletedAt: 1 });
 refreshTokenSchema.index({ expiresAt: 1 }, { expireAfterSeconds: 0 });
 
