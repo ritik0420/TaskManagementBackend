@@ -6,13 +6,16 @@ export async function connectDB(): Promise<void> {
   if (mongoose.connection.readyState === 1) return;
   if (connectionPromise) return connectionPromise;
   const uri = process.env.MONGODB_URI || 'mongodb://localhost:27017/task-management';
-  connectionPromise = mongoose.connect(uri, {
-    serverSelectionTimeoutMS: 20000,
-    bufferCommands: false,
-  }).catch((err) => {
-    connectionPromise = null;
-    throw err;
-  });
+  connectionPromise = mongoose
+    .connect(uri, {
+      serverSelectionTimeoutMS: 20000,
+      bufferCommands: false,
+    })
+    .then(() => undefined)
+    .catch((err) => {
+      connectionPromise = null;
+      throw err;
+    });
   await connectionPromise;
 }
 
